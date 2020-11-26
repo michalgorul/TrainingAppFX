@@ -40,6 +40,11 @@ public class Controller {
     private Button statsButton;
 
     @FXML
+    private Button saveAndExitExerciseButton;
+
+    //########################################### BMI FIELDS
+
+    @FXML
     private TextField usersHeight;
 
     @FXML
@@ -56,6 +61,8 @@ public class Controller {
 
     public Controller() {
     }
+
+    //########################################### EXERCISE PAGE
 
 
     @FXML
@@ -74,7 +81,14 @@ public class Controller {
     }
 
 
-    //########################################### BMI
+    @FXML
+    public void handleCloseAndSaveExerciseButtonAction(ActionEvent event) {
+        Stage stage = (Stage) saveAndExitExerciseButton.getScene().getWindow();
+        stage.close();
+    }
+
+
+    //########################################### BMI PAGE
 
     @FXML
     private void openBmiWindow(ActionEvent event) {
@@ -114,7 +128,7 @@ public class Controller {
     }
 
 
-    //########################################### STATS
+    //########################################### STATS PAGE
 
     @FXML
     private void openStatsWindow(ActionEvent event) {

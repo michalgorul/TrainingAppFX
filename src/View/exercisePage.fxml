@@ -7,7 +7,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
    <children>
       <Label layoutX="104.0" layoutY="14.0" text="Save your exercise!">
@@ -47,7 +46,7 @@
       <TextField fx:id="durationTextField" layoutX="361.0" layoutY="284.0" prefHeight="25.0" prefWidth="102.0" />
       <ComboBox fx:id="distanceComboBox" layoutX="180.0" layoutY="284.0" prefHeight="25.0" prefWidth="50.0" />
       <ComboBox fx:id="durationComboBox" layoutX="463.0" layoutY="284.0" prefHeight="25.0" prefWidth="50.0" />
-      <Button fx:id="saveAndExitExerciseButton" layoutX="241.0" layoutY="338.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="118.0" text="Save &amp; exit">
+      <Button fx:id="saveAndExitExerciseButton" layoutX="241.0" layoutY="338.0" mnemonicParsing="false" onAction="#handleCloseAndSaveExerciseButtonAction" prefHeight="35.0" prefWidth="118.0" text="Save &amp; exit">
          <font>
             <Font size="17.0" />
          </font>
