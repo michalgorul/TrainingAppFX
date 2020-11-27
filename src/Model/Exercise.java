@@ -13,8 +13,8 @@ public class Exercise {
     private final String comment;
     private final String exerciseDate;
 
-    private final Double distance;      //in meters
-    private final Double duration;      //in meters
+    private final Double distance;      //in kilometers
+    private final Double duration;      //in minutes
 
     public Exercise(String name, String comment, String exerciseDate, Double distance, Double duration){
 
