@@ -4,11 +4,18 @@ import Exceptions.MyException;
 import Model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class ControllerBmi {
 
@@ -34,9 +41,15 @@ public class ControllerBmi {
 
 
     @FXML
-    public void handleCloseBmiButtonAction(ActionEvent event) {
-        Stage stage = (Stage) closeBmiButton.getScene().getWindow();
-        stage.close();
+    public void handleCloseBmiButtonAction(ActionEvent event) throws IOException {
+
+        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/mainPage.fxml")));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
     }
 
     @FXML

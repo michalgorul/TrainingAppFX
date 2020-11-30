@@ -1,6 +1,8 @@
 package Model;
 
 import Exceptions.MyException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 import java.io.File;
@@ -37,8 +39,8 @@ public class Model {
 
     public Model(){
 
-        /**
-         * Vector of distance units
+        /*
+          Vector of distance units
          */
         Vector<String> distanceUnits = new Vector<>();
         distanceUnits.add("km");
@@ -180,6 +182,26 @@ public class Model {
                 throw new MyException(arg);
             }
         }
+    }
+
+
+    public ObservableList<Exercise> getExercise(){
+
+        ObservableList<Exercise> exerciseObservableList = FXCollections.observableArrayList();
+        exerciseObservableList.add(new Exercise("elo6","", "null",123.0, 123.0));
+        exerciseObservableList.add(new Exercise("elo1","", "null",123.0, 123.0));
+        exerciseObservableList.add(new Exercise("elo2","", "null",123.0, 123.0));
+        exerciseObservableList.add(new Exercise("elo3","", "null",123.0, 123.0));
+        exerciseObservableList.add(new Exercise("elo4","", "null",123.0, 123.0));
+        exerciseObservableList.add(new Exercise("elo5","", "null",123.0, 123.0));
+
+
+        for(Exercise ex : this.exercises){
+
+            exerciseObservableList.add(new Exercise(ex.getExerciseName(), ex.getComment(), ex.getExerciseDate(), ex.getDistance(), ex.getDuration()));
+        }
+
+        return exerciseObservableList;
     }
 
 }

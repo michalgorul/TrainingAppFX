@@ -9,8 +9,8 @@ package Model;
  */
 public class Exercise {
 
-    private final String exerciseName;
-    private final String comment;
+    private String exerciseName;
+    private String comment;
     private final String exerciseDate;
 
     private final Double distance;      //in kilometers
@@ -29,8 +29,16 @@ public class Exercise {
         return exerciseName;
     }
 
+    public void setExerciseName(String newName){
+        this.exerciseName = newName;
+    }
+
     public String getComment() {
         return comment;
+    }
+
+    public void setComment(String newComment){
+        this.comment = newComment;
     }
 
     public String getExerciseDate() {

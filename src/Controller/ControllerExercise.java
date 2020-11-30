@@ -4,8 +4,15 @@ import Exceptions.MyException;
 import Model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class ControllerExercise {
 
@@ -60,12 +67,17 @@ public class ControllerExercise {
     }
 
     @FXML
-    public void handleCloseAndSaveExerciseButtonAction(ActionEvent event) {
+    public void handleCloseAndSaveExerciseButtonAction(ActionEvent event) throws IOException {
 
         if(getValuesAndSave()){
 
-            Stage stage = (Stage) saveAndExitExerciseButton.getScene().getWindow();
-            stage.close();
+            Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/mainPage.fxml")));
+            Scene tableViewScene = new Scene(tableViewParent);
+
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+            window.setScene(tableViewScene);
+            window.show();
         }
     }
 
@@ -79,7 +91,7 @@ public class ControllerExercise {
         if(categoryComboBox.getValue() != null){
             cat = categoryComboBox.getValue().toString();
         }
-        if(cat == "" || categoryComboBox.getValue() == null){
+        if(cat.equals("") || categoryComboBox.getValue() == null){
             canSave = false;
             alert = new Alert(Alert.AlertType.ERROR, "Please select category");
             alert.showAndWait();

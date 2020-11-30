@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -50,48 +51,39 @@ public class ControllerMain {
     }
 
     @FXML
-    private void openExerciseWindow(ActionEvent event) {
-        Parent root;
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/exercisePage.fxml")));
-            Stage stage = new Stage();
-            stage.setTitle("Exercise Page");
-            stage.setScene(new Scene(root, 600, 400));
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void openExerciseWindow(ActionEvent event) throws IOException{
+
+        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/exercisePage.fxml")));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
     }
 
     @FXML
-    private void openBmiWindow(ActionEvent event) {
-        Parent root;
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/bmiPage.fxml")));
-            Stage stage = new Stage();
-            stage.setTitle("Calculating BMI Page");
-            stage.setScene(new Scene(root, 600, 400));
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void openBmiWindow(ActionEvent event) throws IOException{
+
+        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/bmiPage.fxml")));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
     }
 
-    @FXML
-    private void openStatsWindow(ActionEvent event) {
-        Parent root;
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/statsPage.fxml")));
-            Stage stage = new Stage();
-            stage.setTitle("Statistics Page");
-            stage.setScene(new Scene(root, 600, 400));
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    public void openHistoryWindow(ActionEvent event) throws IOException{
+
+        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/historyPage.fxml")));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
     }
 
 }
