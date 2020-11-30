@@ -39,7 +39,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="451.0" layoutY="308.0" mnemonicParsing="false" onAction="#openHistoryWindow" prefHeight="48.0" prefWidth="99.0" text="Statistics">
+      <Button layoutX="451.0" layoutY="308.0" mnemonicParsing="false" onAction="#openHistoryWindow" prefHeight="48.0" prefWidth="99.0" text="History">
          <font>
             <Font size="17.0" />
          </font>

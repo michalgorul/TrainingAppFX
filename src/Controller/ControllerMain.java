@@ -21,7 +21,7 @@ public class ControllerMain {
     /**
      * The model object from MVC model
      */
-    private final Model theModel = new Model();
+    private Model theModel = new Model();
 
     @FXML
     private TextField nameTextField;
@@ -41,6 +41,10 @@ public class ControllerMain {
     @FXML
     private Label nameLabel;
 
+    public void updateModel(Model theModel){
+        this.theModel = theModel;
+    }
+
     @FXML
     public void setNameTextField(javafx.event.ActionEvent actionEvent) {
 
@@ -53,20 +57,27 @@ public class ControllerMain {
     @FXML
     private void openExerciseWindow(ActionEvent event) throws IOException{
 
-        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/exercisePage.fxml")));
-        Scene tableViewScene = new Scene(tableViewParent);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Objects.requireNonNull(getClass().getClassLoader().getResource("View/exercisePage.fxml")));
+        Parent root = loader.load();
+
+        Scene exerciseScene = new Scene(root);
+
+        //access the controller and call a method
+        ControllerExercise controller = loader.getController();
+        controller.initData(this.theModel);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        window.setScene(tableViewScene);
+        window.setScene(exerciseScene);
         window.show();
     }
 
     @FXML
     private void openBmiWindow(ActionEvent event) throws IOException{
 
-        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/bmiPage.fxml")));
-        Scene tableViewScene = new Scene(tableViewParent);
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/bmiPage.fxml")));
+        Scene tableViewScene = new Scene(root);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
@@ -77,12 +88,20 @@ public class ControllerMain {
 
     public void openHistoryWindow(ActionEvent event) throws IOException{
 
-        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/historyPage.fxml")));
-        Scene tableViewScene = new Scene(tableViewParent);
+        //Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/historyPage.fxml")));
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Objects.requireNonNull(getClass().getClassLoader().getResource("View/historyPage.fxml")));
+        Parent root = loader.load();
+
+        Scene historyScene = new Scene(root);
+
+        ControllerHistory controller = loader.getController();
+        controller.initData(this.theModel);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        window.setScene(tableViewScene);
+        window.setScene(historyScene);
         window.show();
     }
 

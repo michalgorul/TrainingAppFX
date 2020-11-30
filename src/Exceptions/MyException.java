@@ -3,7 +3,7 @@ package Exceptions;
 /**
  * The class indicates conditions that our application might want to catch.
  * It is subclass of Exception
- * @author Michał Góral
+ * @author Michal Goral
  * @version 1.0
  */
 public class MyException extends Exception{

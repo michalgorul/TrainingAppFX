@@ -28,33 +28,6 @@ public class Model {
     private final Vector<Exercise> exercises = new Vector<>();
 
     /**
-     * Vector of exercise names
-     */
-    private final Vector<String> exerciseNames;
-
-    /**
-     * Vector of duration units
-     */
-    private final Vector<String> durationUnits = new Vector<>();
-
-    public Model(){
-
-        /*
-          Vector of distance units
-         */
-        Vector<String> distanceUnits = new Vector<>();
-        distanceUnits.add("km");
-        distanceUnits.add("m");
-        distanceUnits.add("cm");
-
-        durationUnits.add("h");
-        durationUnits.add("min");
-        durationUnits.add("s");
-
-        exerciseNames = readCategoriesFromFile("C:\\Users\\micha\\IdeaProjects\\TrainingAppSWING\\categories.txt");
-    }
-
-    /**
      * This method will set passed name
      * @param userName name to set
      */
@@ -117,8 +90,6 @@ public class Model {
         exercises.add(new Exercise(name, comment, date, distance, duration));
 
     }
-
-
 
     /**
      * This method will check if user's weight and height are in reasonable bounds
@@ -185,23 +156,21 @@ public class Model {
     }
 
 
-    public ObservableList<Exercise> getExercise(){
+    public ObservableList<Exercise> getExercisesToTableView(){
 
         ObservableList<Exercise> exerciseObservableList = FXCollections.observableArrayList();
-        exerciseObservableList.add(new Exercise("elo6","", "null",123.0, 123.0));
-        exerciseObservableList.add(new Exercise("elo1","", "null",123.0, 123.0));
-        exerciseObservableList.add(new Exercise("elo2","", "null",123.0, 123.0));
-        exerciseObservableList.add(new Exercise("elo3","", "null",123.0, 123.0));
-        exerciseObservableList.add(new Exercise("elo4","", "null",123.0, 123.0));
-        exerciseObservableList.add(new Exercise("elo5","", "null",123.0, 123.0));
-
 
         for(Exercise ex : this.exercises){
 
-            exerciseObservableList.add(new Exercise(ex.getExerciseName(), ex.getComment(), ex.getExerciseDate(), ex.getDistance(), ex.getDuration()));
+            exerciseObservableList.add(ex);
         }
 
         return exerciseObservableList;
+    }
+
+    public void deleteExercise(Exercise ex){
+
+        exercises.remove(ex);
     }
 
 }

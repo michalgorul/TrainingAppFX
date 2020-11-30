@@ -5,6 +5,7 @@ import Model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,14 +13,14 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.Vector;
 
-public class ControllerExercise {
+public class ControllerExercise implements Initializable {
 
-    /**
-     * The model object from MVC model
-     */
-    private final Model theModel = new Model();
+    private Model theModel;
 
     @FXML
     private ComboBox categoryComboBox;
@@ -39,6 +40,32 @@ public class ControllerExercise {
     @FXML
     private Button saveAndExitExerciseButton;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        try{
+            Vector<String> names = theModel.readCategoriesFromFile("categories.txt");
+
+            for(String s : names){
+
+                categoryComboBox.getItems().add(s);
+            }
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    public void initData(Model theModel){
+
+        this.theModel = theModel;
+
+        Vector<String> names = this.theModel.readCategoriesFromFile("categories.txt");
+
+        for(String s : names){
+
+            categoryComboBox.getItems().add(s);
+        }
+    }
 
     private Double getDisOrDurInDouble(String value){
 
@@ -59,11 +86,11 @@ public class ControllerExercise {
 
         } catch (NumberFormatException e) {
 
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter right value");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter right distance and duration value");
             alert.showAndWait();
         }
 
-        return 0.0;
+        return -1.0;
     }
 
     @FXML
@@ -71,20 +98,42 @@ public class ControllerExercise {
 
         if(getValuesAndSave()){
 
-            Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/mainPage.fxml")));
-            Scene tableViewScene = new Scene(tableViewParent);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Objects.requireNonNull(getClass().getClassLoader().getResource("View/mainPage.fxml")));
+            Parent root = loader.load();
+
+            Scene exerciseScene = new Scene(root);
+
+            //access the controller and call a method
+            ControllerMain controller = loader.getController();
+            controller.updateModel(this.theModel);
 
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-            window.setScene(tableViewScene);
+            window.setScene(exerciseScene);
             window.show();
         }
+    }
+
+    @FXML
+    public void handleCloseExerciseButtonAction(ActionEvent event) throws IOException {
+
+        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/mainPage.fxml")));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+
     }
 
     private boolean getValuesAndSave(){
 
         String cat = "", dat = "";
         boolean canSave = true;
+        boolean canSaveDisDur = false;
+        boolean errorAlertShown = false;
 
         Alert alert;
 
@@ -93,23 +142,42 @@ public class ControllerExercise {
         }
         if(cat.equals("") || categoryComboBox.getValue() == null){
             canSave = false;
-            alert = new Alert(Alert.AlertType.ERROR, "Please select category");
-            alert.showAndWait();
+
+            if(!errorAlertShown){
+                alert = new Alert(Alert.AlertType.ERROR, "Please select category");
+                alert.showAndWait();
+                errorAlertShown = true;
+            }
+
         }
         if(exerciseDatePicker.getValue() == null){
             canSave = false;
-            alert = new Alert(Alert.AlertType.ERROR, "Please select date");
-            alert.showAndWait();
+
+            if(!errorAlertShown){
+                alert = new Alert(Alert.AlertType.ERROR, "Please select date");
+                alert.showAndWait();
+                errorAlertShown = true;
+            }
+
         }
         else{
             dat = exerciseDatePicker.getValue().toString();
         }
 
         String com = commentTextField.getText();
-        Double dis = getDisOrDurInDouble(distanceTextField.getText());
-        Double dur = getDisOrDurInDouble(durationTextField.getText());
+        Double dis = -1.0, dur = -1.0;
+        if(!errorAlertShown){
+            dis = getDisOrDurInDouble(distanceTextField.getText());
+            if(dis >= 0.0){
+                dur = getDisOrDurInDouble(durationTextField.getText());
+            }
+        }
 
-        if(canSave){
+        if(dur >= 0.0 && dis >= 0.0){
+            canSaveDisDur = true;
+        }
+
+        if(canSave && canSaveDisDur){
             theModel.addExercise(cat, com, dat, dis, dur);
             alert = new Alert(Alert.AlertType.INFORMATION, "Exercise saved");
             alert.showAndWait();
