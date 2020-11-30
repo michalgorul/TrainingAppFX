@@ -17,6 +17,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * The ControllerMain class coordinates interactions between the View and Model, controller of calculating BMI page
+ * @author Michal Goral
+ * @version 1.0
+ */
 public class ControllerBmi {
 
     /**
@@ -24,22 +29,29 @@ public class ControllerBmi {
      */
     private final Model theModel = new Model();
 
+    /**
+     * A TextField where user can input his height
+     */
     @FXML
     private TextField usersHeight;
 
+    /**
+     * A TextField where user can input his height
+     */
     @FXML
     private TextField usersWeight;
 
+    /**
+     * A Label where user's BMI will be displayed
+     */
     @FXML
     private Label bmiLabel;
 
-    @FXML
-    private Button closeBmiButton;
-
-    @FXML
-    private Label nameLabel;
-
-
+    /**
+     * This method will take us to main page after clicking return button
+     * @param event the event to be processed
+     * @throws IOException in/out exception
+     */
     @FXML
     public void handleCloseBmiButtonAction(ActionEvent event) throws IOException {
 
@@ -52,6 +64,10 @@ public class ControllerBmi {
         window.show();
     }
 
+    /**
+     * This method handles displaying result of calculation BMI made by model
+     * @param event the event to be processed
+     */
     @FXML
     public void handleCalculateBmiButtonAction(ActionEvent event) {
 
@@ -67,6 +83,5 @@ public class ControllerBmi {
 
         bmiLabel.setText("Your BMI is: " + theModel.calculateBmi());
     }
-
 
 }

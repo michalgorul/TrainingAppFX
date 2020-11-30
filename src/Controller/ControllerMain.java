@@ -8,14 +8,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * The ControllerMain class coordinates interactions between the View and Model, controller of main page
+ * @author Michal Goral
+ * @version 1.0
+ */
 public class ControllerMain {
 
     /**
@@ -23,30 +26,32 @@ public class ControllerMain {
      */
     private Model theModel = new Model();
 
+    /**
+     * A textField where user can type in his name
+     */
     @FXML
     private TextField nameTextField;
 
-    @FXML
-    private Button sendNameButton;
-
-    @FXML
-    private Button exerciseButton;
-
-    @FXML
-    private Button bmiButton;
-
-    @FXML
-    private Button statsButton;
-
+    /**
+     * label to display user's name
+     */
     @FXML
     private Label nameLabel;
 
+    /**
+     * This method will update existing model
+     * @param theModel model to update
+     */
     public void updateModel(Model theModel){
         this.theModel = theModel;
     }
 
+    /**
+     * This method handles action after clicking send name button
+     * @param event the event to be processed
+     */
     @FXML
-    public void setNameTextField(javafx.event.ActionEvent actionEvent) {
+    public void setNameTextField(ActionEvent event) {
 
         theModel.setUserName(nameTextField.getText());
 
@@ -54,6 +59,10 @@ public class ControllerMain {
         nameLabel.setAlignment(Pos.CENTER);
     }
 
+    /**
+     * This method handles action after clicking add new exercise button
+     * @param event the event to be processed
+     */
     @FXML
     private void openExerciseWindow(ActionEvent event) throws IOException{
 
@@ -73,6 +82,10 @@ public class ControllerMain {
         window.show();
     }
 
+    /**
+     * This method handles action after clicking calculate BMI button
+     * @param event the event to be processed
+     */
     @FXML
     private void openBmiWindow(ActionEvent event) throws IOException{
 
@@ -85,10 +98,12 @@ public class ControllerMain {
         window.show();
     }
 
-
+    /**
+     * This method handles action after clicking show history button
+     * @param event the event to be processed
+     */
+    @FXML
     public void openHistoryWindow(ActionEvent event) throws IOException{
-
-        //Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/historyPage.fxml")));
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Objects.requireNonNull(getClass().getClassLoader().getResource("View/historyPage.fxml")));

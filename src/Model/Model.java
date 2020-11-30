@@ -4,13 +4,13 @@ import Exceptions.MyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
 import java.util.Vector;
+
 
 public class Model {
 
@@ -19,7 +19,14 @@ public class Model {
      */
     private String userName;
 
+    /**
+     * Holds user's height
+     */
     private Double height = 0.0;
+
+    /**
+     * Holds user's weight
+     */
     private Double weight = 0.0;
 
     /**
@@ -156,18 +163,23 @@ public class Model {
     }
 
 
+    /**
+     * This method will prepare program to view history of user's trainings
+     * @return ObservableList of user's exercises
+     */
     public ObservableList<Exercise> getExercisesToTableView(){
 
         ObservableList<Exercise> exerciseObservableList = FXCollections.observableArrayList();
 
-        for(Exercise ex : this.exercises){
-
-            exerciseObservableList.add(ex);
-        }
+        exerciseObservableList.addAll(this.exercises);
 
         return exerciseObservableList;
     }
 
+    /**
+     * This method will delete chosen exercise
+     * @param ex exercise to delete
+     */
     public void deleteExercise(Exercise ex){
 
         exercises.remove(ex);
