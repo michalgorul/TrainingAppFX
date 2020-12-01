@@ -32,12 +32,12 @@ public class ControllerStats implements Initializable {
     /**
      * A vector of Labels to display distances in specific category
      */
-    private Vector<Label> distances = new Vector<>();
+    private final Vector<Label> distances = new Vector<>();
 
     /**
      * A vector of Labels to display durations in specific category
      */
-    private Vector<Label> durations = new Vector<>();
+    private final Vector<Label> durations = new Vector<>();
 
     /**
      * A Label where user's running distance stats will be shown

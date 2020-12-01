@@ -89,12 +89,19 @@ public class ControllerMain {
     @FXML
     private void openBmiWindow(ActionEvent event) throws IOException{
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/bmiPage.fxml")));
-        Scene tableViewScene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Objects.requireNonNull(getClass().getClassLoader().getResource("View/bmiPage.fxml")));
+        Parent root = loader.load();
+
+        Scene exerciseScene = new Scene(root);
+
+        //access the controller and call a method
+        ControllerBmi controller = loader.getController();
+        controller.initData(this.theModel);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        window.setScene(tableViewScene);
+        window.setScene(exerciseScene);
         window.show();
     }
 

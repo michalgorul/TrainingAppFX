@@ -27,7 +27,7 @@ public class ControllerBmi {
     /**
      * The model object from MVC model
      */
-    private final Model theModel = new Model();
+    private Model theModel;
 
     /**
      * A TextField where user can input his height
@@ -47,6 +47,10 @@ public class ControllerBmi {
     @FXML
     private Label bmiLabel;
 
+    public void initData(Model theModel){
+        this.theModel = theModel;
+    }
+
     /**
      * This method will take us to main page after clicking return button
      * @param event the event to be processed
@@ -55,12 +59,19 @@ public class ControllerBmi {
     @FXML
     public void handleCloseBmiButtonAction(ActionEvent event) throws IOException {
 
-        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/mainPage.fxml")));
-        Scene tableViewScene = new Scene(tableViewParent);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Objects.requireNonNull(getClass().getClassLoader().getResource("View/mainPage.fxml")));
+        Parent root = loader.load();
+
+        Scene exerciseScene = new Scene(root);
+
+        //access the controller and call a method
+        ControllerMain controller = loader.getController();
+        controller.updateModel(this.theModel);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        window.setScene(tableViewScene);
+        window.setScene(exerciseScene);
         window.show();
     }
 

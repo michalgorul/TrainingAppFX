@@ -75,7 +75,7 @@ public class ControllerExercise implements Initializable {
 
                 categoryComboBox.getItems().add(s);
             }
-        }catch (NullPointerException e){
+        }catch (NullPointerException ignored){
 
         }
     }
@@ -186,16 +186,14 @@ public class ControllerExercise implements Initializable {
         Alert alert;
 
         if(categoryComboBox.getValue() != null){
-            cat = categoryComboBox.getValue().toString();
+            cat = categoryComboBox.getValue();
         }
         if(cat.equals("") || categoryComboBox.getValue() == null){
             canSave = false;
 
-            if(!errorAlertShown){
-                alert = new Alert(Alert.AlertType.ERROR, "Please select category");
-                alert.showAndWait();
-                errorAlertShown = true;
-            }
+            alert = new Alert(Alert.AlertType.ERROR, "Please select category");
+            alert.showAndWait();
+            errorAlertShown = true;
 
         }
         if(exerciseDatePicker.getValue() == null){
