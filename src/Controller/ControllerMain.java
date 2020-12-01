@@ -99,6 +99,28 @@ public class ControllerMain {
     }
 
     /**
+     * This method handles action after clicking show stats button
+     * @param event the event to be processed
+     */
+    @FXML
+    public void openStatsWindow(ActionEvent event) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Objects.requireNonNull(getClass().getClassLoader().getResource("View/statsPage.fxml")));
+        Parent root = loader.load();
+
+        Scene historyScene = new Scene(root);
+
+        ControllerStats controller = loader.getController();
+        controller.initData(this.theModel);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(historyScene);
+        window.show();
+    }
+
+    /**
      * This method handles action after clicking show history button
      * @param event the event to be processed
      */

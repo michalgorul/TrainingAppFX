@@ -74,14 +74,12 @@ public class ControllerBmi {
         try{
             theModel.setHeightAndWeight(usersHeight.getText(), usersWeight.getText());
             theModel.checkHeightAndWeight();
-
-        }catch (MyException e){
+            bmiLabel.setText("Your BMI is: " + theModel.calculateBmi());
+        }
+        catch (MyException e){
 
             Alert alert = new Alert(Alert.AlertType.ERROR, e.toStringBmi());
             alert.showAndWait();
         }
-
-        bmiLabel.setText("Your BMI is: " + theModel.calculateBmi());
     }
-
 }

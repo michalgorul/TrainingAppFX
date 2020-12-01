@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 public class Model {
@@ -35,6 +38,11 @@ public class Model {
     private final Vector<Exercise> exercises = new Vector<>();
 
     /**
+     * Vector of exercise names
+     */
+    private Vector<String> exerciseNames = new Vector<>();
+
+    /**
      * This method will set passed name
      * @param userName name to set
      */
@@ -49,14 +57,6 @@ public class Model {
     public String getUserName(){
 
         return this.userName;
-    }
-
-    /**
-     * This method will give us vector of all exercises
-     * @return vector of all exercises
-     */
-    public Vector<Exercise> getExercises() {
-        return exercises;
     }
 
     /**
@@ -81,6 +81,7 @@ public class Model {
             e.printStackTrace();
         }
 
+        exerciseNames = categories;
         return categories;
     }
 
@@ -94,8 +95,13 @@ public class Model {
      */
     public void addExercise(String name, String comment, String date, Double distance, Double duration){
 
-        exercises.add(new Exercise(name, comment, date, distance, duration));
+        try{
+            checkDoublesIfNegative(distance, duration);
+            exercises.add(new Exercise(name, comment, date, distance, duration));
+        }
+        catch(MyException ignored){
 
+        }
     }
 
     /**
@@ -162,7 +168,6 @@ public class Model {
         }
     }
 
-
     /**
      * This method will prepare program to view history of user's trainings
      * @return ObservableList of user's exercises
@@ -185,4 +190,76 @@ public class Model {
         exercises.remove(ex);
     }
 
+    /**
+     * This method will give us sum of kilometers using for each loop of specific category
+     * @return sum of kilometers in specific category
+     */
+    public Double getSumDistanceForEach(String arrayName){
+
+        Double sum = 0.0;
+
+        for(Exercise ex : exercises){
+
+            if(ex.getExerciseName().equals(arrayName)){
+
+                sum += ex.getDistance();
+            }
+        }
+        return sum;
+    }
+
+    /**
+     * This method will give us sum of minutes using for each loop of specific category
+     * @return sum of minutes in specific category
+     */
+    public Double getSumDurationForEach(String arrayName){
+
+        Double sum = 0.0;
+
+        for(Exercise ex : exercises){
+
+            if(ex.getExerciseName().equals(arrayName)) {
+                sum += ex.getDuration();
+            }
+        }
+        return sum;
+    }
+
+    /**
+     * This method will give us sum of kilometers from specific category using streams
+     * I'm using streams here
+     * @param arrayName category from which we want to get sum of reps
+     * @return sum of kilometers in specific category
+     */
+    public Double getSumDistanceStream(String arrayName){
+
+        Stream<Double> filteredStream = exercises.stream()
+                .filter(e -> e.getExerciseName().equals(arrayName))
+                .map(Exercise::getDistance);
+
+        DoubleStream doubleStream = filteredStream.mapToDouble(x -> x);
+
+        return doubleStream.sum();
+    }
+
+    /**
+     * This method will give us sum of minutes from specific category using streams
+     * I'm using streams here
+     * @param arrayName category from which we want to get sum of reps
+     * @return sum of minutes in specific category
+     */
+    public Double getSumDurationStream(String arrayName){
+
+        Stream<Double> filteredStream = exercises.stream()
+                .filter(e -> e.getExerciseName().equals(arrayName))
+                .map(Exercise::getDuration);
+
+        DoubleStream doubleStream = filteredStream.mapToDouble(x -> x);
+
+        return doubleStream.sum();
+    }
+
+    public Vector<String> getExerciseNames() {
+        return exerciseNames;
+    }
 }

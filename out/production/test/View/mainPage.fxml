@@ -29,19 +29,24 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="48.0" layoutY="308.0" mnemonicParsing="false" onAction="#openExerciseWindow" prefHeight="48.0" prefWidth="99.0" text="Exercise">
+      <Button layoutX="24.0" layoutY="308.0" mnemonicParsing="false" onAction="#openExerciseWindow" prefHeight="48.0" prefWidth="99.0" text="Exercise">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button layoutX="246.0" layoutY="305.0" mnemonicParsing="false" onAction="#openBmiWindow" prefHeight="54.0" prefWidth="99.0" text="BMI">
+      <Button layoutX="176.0" layoutY="308.0" mnemonicParsing="false" onAction="#openBmiWindow" prefHeight="48.0" prefWidth="99.0" text="BMI">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="451.0" layoutY="308.0" mnemonicParsing="false" onAction="#openHistoryWindow" prefHeight="48.0" prefWidth="99.0" text="History">
+      <Button layoutX="467.0" layoutY="308.0" mnemonicParsing="false" onAction="#openHistoryWindow" prefHeight="48.0" prefWidth="99.0" text="History">
          <font>
             <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="321.0" layoutY="308.0" mnemonicParsing="false" onAction="#openStatsWindow" prefHeight="48.0" prefWidth="99.0" text="Stats">
+         <font>
+            <Font size="18.0" />
          </font>
       </Button>
    </children>
