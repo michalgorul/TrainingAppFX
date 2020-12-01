@@ -62,6 +62,7 @@ public class ControllerMain {
     /**
      * This method handles action after clicking add new exercise button
      * @param event the event to be processed
+     * @throws IOException in/out exception
      */
     @FXML
     private void openExerciseWindow(ActionEvent event) throws IOException{
@@ -85,6 +86,7 @@ public class ControllerMain {
     /**
      * This method handles action after clicking calculate BMI button
      * @param event the event to be processed
+     * @throws IOException in/out exception
      */
     @FXML
     private void openBmiWindow(ActionEvent event) throws IOException{
@@ -105,9 +107,11 @@ public class ControllerMain {
         window.show();
     }
 
+
     /**
      * This method handles action after clicking show stats button
      * @param event the event to be processed
+     * @throws IOException in/out exception
      */
     @FXML
     public void openStatsWindow(ActionEvent event) throws IOException{
@@ -130,6 +134,7 @@ public class ControllerMain {
     /**
      * This method handles action after clicking show history button
      * @param event the event to be processed
+     * @throws IOException in/out exception
      */
     @FXML
     public void openHistoryWindow(ActionEvent event) throws IOException{
