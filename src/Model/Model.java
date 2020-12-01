@@ -14,7 +14,11 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-
+/**
+ * The Model class contains data to operate on and all necessary calculations on them
+ * @author Michal Goral
+ * @version 1.0
+ */
 public class Model {
 
     /**
@@ -66,23 +70,26 @@ public class Model {
      */
     public Vector<String> readCategoriesFromFile(String name) {
 
-        Vector<String> categories = new Vector<>();
-        try {
-            File myObj = new File(name);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
+        if(name!=null){
+            Vector<String> categories = new Vector<>();
+            try {
+                File myObj = new File(name);
+                Scanner myReader = new Scanner(myObj);
+                while (myReader.hasNextLine()) {
 
-                String data = myReader.nextLine();
-                categories.add(data);
+                    String data = myReader.nextLine();
+                    categories.add(data);
+                }
+                myReader.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
 
-        exerciseNames = categories;
-        return categories;
+            exerciseNames = categories;
+            return categories;
+        }
+        return null;
     }
 
     /**
@@ -109,7 +116,7 @@ public class Model {
      * @throws MyException thrown if height or weight arent proper
      */
     public void checkHeightAndWeight() throws MyException {
-        if(this.height < 1.0 || this.height > 320.0 || this.weight < 1.0 || this.weight > 320.0){
+        if(this.height < 0.0 || this.height > 320.0 || this.weight < 0.0 || this.weight > 320.0){
 
             throw new MyException(this.height, this.weight);
         }
@@ -133,6 +140,8 @@ public class Model {
 
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter right value");
             alert.showAndWait();
+            this.height = 0.0;
+            this.weight = 0.0;
         }
     }
 
@@ -143,14 +152,14 @@ public class Model {
     public Double calculateBmi(){
         double bmi;
 
-        if (this.height <= 0 || this.weight <= 0) {
+        if (this.height < 0 || this.weight < 0) {
             throw new ArithmeticException("incorrect values");
         }
         else {
             bmi = this.weight/((this.height/100)*(this.height/100));
+            return BigDecimal.valueOf(bmi).setScale(2, RoundingMode.HALF_UP).doubleValue();
         }
 
-        return BigDecimal.valueOf(bmi).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -185,13 +194,19 @@ public class Model {
      * This method will delete chosen exercise
      * @param ex exercise to delete
      */
-    public void deleteExercise(Exercise ex){
+    public void deleteExercise(Exercise ex) throws NullPointerException{
 
-        exercises.remove(ex);
+        if(ex == null){
+            throw new NullPointerException();
+        }
+        else{
+            exercises.remove(ex);
+        }
     }
 
     /**
      * This method will give us sum of kilometers using for each loop of specific category
+     * @param arrayName name of a specific category
      * @return sum of kilometers in specific category
      */
     public Double getSumDistanceForEach(String arrayName){
@@ -210,6 +225,7 @@ public class Model {
 
     /**
      * This method will give us sum of minutes using for each loop of specific category
+     * @param arrayName name of a specific category
      * @return sum of minutes in specific category
      */
     public Double getSumDurationForEach(String arrayName){
@@ -259,6 +275,10 @@ public class Model {
         return doubleStream.sum();
     }
 
+    /**
+     * This method will give us vector of category names saved in model
+     * @return vector of category names
+     */
     public Vector<String> getExerciseNames() {
         return exerciseNames;
     }

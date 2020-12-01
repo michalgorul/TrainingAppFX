@@ -1,6 +1,7 @@
 package Model;
 
 import Exceptions.MyException;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -9,6 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Vector;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -47,8 +49,8 @@ public class ModelTests {
             bmi = 100.0/((height /100)*(height /100));
             assertEquals(bmi,model.calculateBmi(), 0.01, "Variable values differ by more than 0.01!");
         }
-        catch (ArithmeticException ex) {
-            ex.printStackTrace();
+        catch (ArithmeticException ignored) {
+
         }
     }
 
@@ -69,8 +71,8 @@ public class ModelTests {
             bmi = weight/4.0;
             assertEquals(bmi,model.calculateBmi(), 0.01, "Variable values differ by more than 0.01!");
         }
-        catch (ArithmeticException ex) {
-            ex.printStackTrace();
+        catch (ArithmeticException ignored) {
+
         }
     }
 
@@ -92,8 +94,8 @@ public class ModelTests {
             bmi = weight / ((height /100) * (height /100));
             assertEquals(bmi,model.calculateBmi(), 0.01, "Variable values differ by more than 0.01!");
         }
-        catch (ArithmeticException ex) {
-            ex.printStackTrace();
+        catch (ArithmeticException ignored) {
+
         }
     }
 
@@ -111,8 +113,8 @@ public class ModelTests {
         try{
             model.checkHeightAndWeight();
         }
-        catch(MyException ex) {
-            ex.printStackTrace();
+        catch(MyException ignored) {
+
         }
     }
 
@@ -130,8 +132,8 @@ public class ModelTests {
         try{
             model.checkHeightAndWeight();
         }
-        catch(MyException ex) {
-            ex.printStackTrace();
+        catch(MyException ignored) {
+
         }
     }
 
@@ -150,8 +152,8 @@ public class ModelTests {
         try{
             model.checkHeightAndWeight();
         }
-        catch(MyException ex) {
-            ex.printStackTrace();
+        catch(MyException ignored) {
+
         }
     }
 
@@ -167,8 +169,8 @@ public class ModelTests {
         try{
             model.checkDoublesIfNegative(arg);
         }
-        catch(MyException ex) {
-            ex.printStackTrace();
+        catch(MyException ignored) {
+
         }
     }
 
@@ -327,4 +329,33 @@ public class ModelTests {
     }
 
     // TODO: 01.12.2020 make test where ever with null value
+
+    /**
+     * This test will check if deleteExercise responds to a null value correctly
+     */
+    @Test
+    public void removeExerciseTestWithNull(){
+
+        try{
+            model.deleteExercise(null);
+
+        }catch(NullPointerException ignored) {
+
+        }
+    }
+
+    /**
+     * This test will check if readCategoriesFromFile responds to a null value correctly
+     */
+    @Test
+    public void readCategoriesFromFileTestWithNull(){
+
+        try{
+            model.readCategoriesFromFile(null);
+
+        }catch(NullPointerException ignored) {
+
+        }
+    }
+
 }

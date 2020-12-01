@@ -22,6 +22,10 @@ public class MyException extends Exception{
      * Values for exercise stats that user typed in
      */
     Integer valI;
+
+    /**
+     * Values for exercise stats that user typed in
+     */
     Double valD;
 
     /**
